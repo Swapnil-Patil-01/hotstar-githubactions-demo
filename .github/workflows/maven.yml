@@ -30,3 +30,18 @@ jobs:
         with:
           name: myapp
           path: target/*.war
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: production
+
+    steps:
+      # 5. Download WAR artifact
+      - name: Download WAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: myapp
+
+      # 6. Deploy WAR via Tomacat Manager
+      - name: Deploy to Tomcat
+        run: 
